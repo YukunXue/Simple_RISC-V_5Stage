@@ -1,0 +1,462 @@
+
+*** Running vivado
+    with args -log top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+
+
+
+****** Vivado v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source top.tcl -notrace
+create_project: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 1262.172 ; gain = 6.227
+Command: read_checkpoint -auto_incremental -incremental E:/homework/FPGA/pipline/prj/pipline/pipline.srcs/utils_1/imports/synth_1/top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from E:/homework/FPGA/pipline/prj/pipline/pipline.srcs/utils_1/imports/synth_1/top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top top -part xc7k325tffg900-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k325t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k325t'
+INFO: [Device 21-403] Loading part xc7k325tffg900-2
+WARNING: [Designutils 20-4072] Reference run did not run incremental synthesis because the design is too small; reverting to default synthesis
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 24092
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 1262.172 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top' [E:/homework/FPGA/pipline/src/top_hardware.sv:85]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [E:/homework/FPGA/pipline/prj/pipline/pipline.runs/synth_1/.Xil/Vivado-28288-LAPTOP-NVLKKFTU/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (1#1) [E:/homework/FPGA/pipline/prj/pipline/pipline.runs/synth_1/.Xil/Vivado-28288-LAPTOP-NVLKKFTU/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'riscvsingle' [E:/homework/FPGA/pipline/src/top_hardware.sv:113]
+INFO: [Synth 8-6157] synthesizing module 'controller' [E:/homework/FPGA/pipline/src/top_hardware.sv:138]
+INFO: [Synth 8-6157] synthesizing module 'maindec' [E:/homework/FPGA/pipline/src/top_hardware.sv:188]
+INFO: [Synth 8-6155] done synthesizing module 'maindec' (2#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:188]
+INFO: [Synth 8-6157] synthesizing module 'aludec' [E:/homework/FPGA/pipline/src/top_hardware.sv:214]
+INFO: [Synth 8-6155] done synthesizing module 'aludec' (3#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:214]
+INFO: [Synth 8-6157] synthesizing module 'floprc' [E:/homework/FPGA/pipline/src/top_hardware.sv:461]
+	Parameter WIDTH bound to: 10 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'floprc' (4#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:461]
+INFO: [Synth 8-6157] synthesizing module 'flopr' [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+	Parameter WIDTH bound to: 4 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopr' (5#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+INFO: [Synth 8-6157] synthesizing module 'flopr__parameterized0' [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+	Parameter WIDTH bound to: 3 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopr__parameterized0' (5#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+INFO: [Synth 8-6155] done synthesizing module 'controller' (6#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:138]
+INFO: [Synth 8-6157] synthesizing module 'datapath' [E:/homework/FPGA/pipline/src/top_hardware.sv:241]
+INFO: [Synth 8-6157] synthesizing module 'hazard' [E:/homework/FPGA/pipline/src/top_hardware.sv:329]
+INFO: [Synth 8-6155] done synthesizing module 'hazard' (7#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:329]
+INFO: [Synth 8-6157] synthesizing module 'mux2' [E:/homework/FPGA/pipline/src/top_hardware.sv:496]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mux2' (8#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:496]
+INFO: [Synth 8-6157] synthesizing module 'flopenr' [E:/homework/FPGA/pipline/src/top_hardware.sv:472]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopenr' (9#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:472]
+INFO: [Synth 8-6157] synthesizing module 'adder' [E:/homework/FPGA/pipline/src/top_hardware.sv:427]
+INFO: [Synth 8-6155] done synthesizing module 'adder' (10#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:427]
+INFO: [Synth 8-6157] synthesizing module 'flopenrc' [E:/homework/FPGA/pipline/src/top_hardware.sv:483]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopenrc' (11#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:483]
+INFO: [Synth 8-6157] synthesizing module 'flopenrc__parameterized0' [E:/homework/FPGA/pipline/src/top_hardware.sv:483]
+	Parameter WIDTH bound to: 32 - type: integer 
+	Parameter VALUE_0 bound to: 19 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopenrc__parameterized0' (11#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:483]
+INFO: [Synth 8-6157] synthesizing module 'regfile' [E:/homework/FPGA/pipline/src/top_hardware.sv:380]
+INFO: [Synth 8-6155] done synthesizing module 'regfile' (12#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:380]
+INFO: [Synth 8-6157] synthesizing module 'extend' [E:/homework/FPGA/pipline/src/top_hardware.sv:433]
+INFO: [Synth 8-226] default block is never used [E:/homework/FPGA/pipline/src/top_hardware.sv:438]
+INFO: [Synth 8-6155] done synthesizing module 'extend' (13#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:433]
+INFO: [Synth 8-6157] synthesizing module 'floprc__parameterized0' [E:/homework/FPGA/pipline/src/top_hardware.sv:461]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'floprc__parameterized0' (13#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:461]
+INFO: [Synth 8-6157] synthesizing module 'floprc__parameterized1' [E:/homework/FPGA/pipline/src/top_hardware.sv:461]
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'floprc__parameterized1' (13#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:461]
+INFO: [Synth 8-6157] synthesizing module 'mux3' [E:/homework/FPGA/pipline/src/top_hardware.sv:504]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mux3' (14#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:504]
+INFO: [Synth 8-6157] synthesizing module 'alu' [E:/homework/FPGA/pipline/src/top_hardware.sv:629]
+INFO: [Synth 8-226] default block is never used [E:/homework/FPGA/pipline/src/top_hardware.sv:644]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (15#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:629]
+INFO: [Synth 8-6157] synthesizing module 'flopr__parameterized1' [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopr__parameterized1' (15#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+INFO: [Synth 8-6157] synthesizing module 'flopr__parameterized2' [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopr__parameterized2' (15#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:451]
+INFO: [Synth 8-6155] done synthesizing module 'datapath' (16#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:241]
+INFO: [Synth 8-6155] done synthesizing module 'riscvsingle' (17#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:113]
+INFO: [Synth 8-6157] synthesizing module 'imem' [E:/homework/FPGA/pipline/src/top_hardware.sv:520]
+WARNING: [Synth 8-3848] Net RAM[63] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[62] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[61] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[60] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[59] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[58] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[57] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[56] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[55] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[54] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[53] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[52] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[51] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[50] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[49] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[48] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[47] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[46] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[45] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[44] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[43] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[42] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[41] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[40] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[39] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[38] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[37] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[36] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[35] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[34] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[33] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[32] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[31] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+WARNING: [Synth 8-3848] Net RAM[30] in module/entity imem does not have driver. [E:/homework/FPGA/pipline/src/top_hardware.sv:523]
+INFO: [Synth 8-6155] done synthesizing module 'imem' (18#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:520]
+INFO: [Synth 8-6157] synthesizing module 'dmem' [E:/homework/FPGA/pipline/src/top_hardware.sv:617]
+INFO: [Synth 8-6155] done synthesizing module 'dmem' (19#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:617]
+INFO: [Synth 8-6155] done synthesizing module 'top' (20#1) [E:/homework/FPGA/pipline/src/top_hardware.sv:85]
+WARNING: [Synth 8-7129] Port a[31] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[30] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[29] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[28] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[27] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[26] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[25] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[24] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[23] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[22] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[21] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[20] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[19] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[18] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[17] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[16] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[15] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[14] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[13] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[12] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[11] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[10] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[9] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[8] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[1] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[0] in module dmem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[31] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[30] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[29] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[28] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[27] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[26] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[25] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[24] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[23] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[22] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[21] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[20] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[19] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[18] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[17] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[16] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[15] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[14] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[13] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[12] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[11] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[10] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[9] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[8] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[1] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[0] in module imem is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:08 . Memory (MB): peak = 1262.172 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:08 . Memory (MB): peak = 1262.172 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:08 . Memory (MB): peak = 1262.172 ; gain = 0.000
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 1262.172 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [e:/homework/FPGA/pipline/prj/pipline/pipline.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'u_clk_wiz'
+Finished Parsing XDC File [e:/homework/FPGA/pipline/prj/pipline/pipline.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'u_clk_wiz'
+Parsing XDC File [E:/homework/FPGA/pipline/Genesys2_H.xdc]
+Finished Parsing XDC File [E:/homework/FPGA/pipline/Genesys2_H.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [E:/homework/FPGA/pipline/Genesys2_H.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1333.887 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1333.887 ; gain = 0.000
+WARNING: [Designutils 20-4072] Reference run did not run incremental synthesis because the design is too small; reverting to default synthesis
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:02 ; elapsed = 00:00:15 . Memory (MB): peak = 1333.887 ; gain = 71.715
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k325tffg900-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:02 ; elapsed = 00:00:15 . Memory (MB): peak = 1333.887 ; gain = 71.715
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for clk_in1_n. (constraint file  e:/homework/FPGA/pipline/prj/pipline/pipline.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_in1_n. (constraint file  e:/homework/FPGA/pipline/prj/pipline/pipline.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property IO_BUFFER_TYPE = NONE for clk_in1_p. (constraint file  e:/homework/FPGA/pipline/prj/pipline/pipline.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 5).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_in1_p. (constraint file  e:/homework/FPGA/pipline/prj/pipline/pipline.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 6).
+Applied set_property KEEP_HIERARCHY = SOFT for u_clk_wiz. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:02 ; elapsed = 00:00:15 . Memory (MB): peak = 1333.887 ; gain = 71.715
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:16 . Memory (MB): peak = 1333.887 ; gain = 71.715
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 2     
+	   3 Input   32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 2     
+	   3 Input      1 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 47    
+	               10 Bit    Registers := 1     
+	                5 Bit    Registers := 5     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 19    
+	   4 Input   32 Bit        Muxes := 1     
+	   7 Input   11 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 2     
+	   6 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 35    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 840 (col length:140)
+BRAMs: 890 (col length: RAMB18 140 RAMB36 70)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port a[31] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[30] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[29] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[28] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[27] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[26] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[25] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[24] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[23] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[22] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[21] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[20] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[19] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[18] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[17] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[16] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[15] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[14] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[13] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[12] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[11] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[10] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[9] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[8] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[1] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[0] in module imem is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:05 ; elapsed = 00:00:45 . Memory (MB): peak = 1345.438 ; gain = 83.266
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+--------------+-----------+----------------------+----------------+
+|Module Name | RTL Object   | Inference | Size (Depth x Width) | Primitives     | 
++------------+--------------+-----------+----------------------+----------------+
+|top         | dmem/RAM_reg | Implied   | 64 x 32              | RAM64X1S x 32  | 
++------------+--------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:50 . Memory (MB): peak = 1345.438 ; gain = 83.266
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:01:01 . Memory (MB): peak = 1498.082 ; gain = 235.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+--------------+-----------+----------------------+----------------+
+|Module Name | RTL Object   | Inference | Size (Depth x Width) | Primitives     | 
++------------+--------------+-----------+----------------------+----------------+
+|top         | dmem/RAM_reg | Implied   | 64 x 32              | RAM64X1S x 32  | 
++------------+--------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:11 ; elapsed = 00:01:02 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:01:05 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:01:05 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:01:05 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:01:05 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:01:06 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:01:06 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz_0     |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |clk_wiz  |     1|
+|2     |CARRY4   |    32|
+|3     |LUT1     |     3|
+|4     |LUT2     |   204|
+|5     |LUT3     |   122|
+|6     |LUT4     |    65|
+|7     |LUT5     |   285|
+|8     |LUT6     |   667|
+|9     |MUXF7    |   130|
+|10    |MUXF8    |    52|
+|11    |RAM64X1S |    32|
+|12    |FDCE     |   495|
+|13    |FDPE     |     1|
+|14    |FDRE     |  1024|
+|15    |IBUF     |     1|
+|16    |OBUF     |     8|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:01:06 . Memory (MB): peak = 1499.176 ; gain = 237.004
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 27 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:01:03 . Memory (MB): peak = 1499.176 ; gain = 165.289
+Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:01:06 . Memory (MB): peak = 1499.176 ; gain = 237.004
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.037 . Memory (MB): peak = 1499.176 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 246 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1499.176 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 32 instances were transformed.
+  RAM64X1S => RAM64X1S (RAMS64E): 32 instances
+
+Synth Design complete, checksum: b1dfd55c
+INFO: [Common 17-83] Releasing license: Synthesis
+73 Infos, 115 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:13 ; elapsed = 00:01:12 . Memory (MB): peak = 1499.176 ; gain = 237.004
+INFO: [Common 17-1381] The checkpoint 'E:/homework/FPGA/pipline/prj/pipline/pipline.runs/synth_1/top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Apr  3 19:57:29 2023...

@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Mon Apr  3 19:56:07 2023
+# Process ID: 28288
+# Current directory: E:/homework/FPGA/pipline/prj/pipline/pipline.runs/synth_1
+# Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file: E:/homework/FPGA/pipline/prj/pipline/pipline.runs/synth_1/top.vds
+# Journal file: E:/homework/FPGA/pipline/prj/pipline/pipline.runs/synth_1\vivado.jou
+# Running On: LAPTOP-NVLKKFTU, OS: Windows, CPU Frequency: 2688 MHz, CPU Physical cores: 14, Host memory: 25497 MB
+#-----------------------------------------------------------
+source top.tcl -notrace

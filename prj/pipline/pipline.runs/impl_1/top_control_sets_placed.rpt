@@ -1,0 +1,114 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
+| Date         : Mon Apr  3 19:58:15 2023
+| Host         : LAPTOP-NVLKKFTU running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7k325t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    36 |
+|    Minimum number of control sets                        |    36 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |     8 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    36 |
+| >= 0 to < 4        |     0 |
+| >= 4 to < 6        |     0 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    36 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               0 |            0 |
+| No           | No                    | Yes                    |             373 |          120 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |            1032 |          386 |
+| Yes          | No                    | Yes                    |             123 |           32 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------------------+--------------------------------+------------------+------------------+----------------+--------------+
+|       Clock Signal       |          Enable Signal         | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
++--------------------------+--------------------------------+------------------+------------------+----------------+--------------+
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[3]_5[0]  |                  |               13 |             32 |         2.46 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rddE/q_reg[8]      | reset_IBUF       |                9 |             32 |         3.56 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_4[0]  |                  |               10 |             32 |         3.20 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_5[0]  |                  |                7 |             32 |         4.57 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_8[0]  |                  |               14 |             32 |         2.29 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/E[0]           |                  |                8 |             32 |         4.00 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_2[0]  |                  |               15 |             32 |         2.13 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_4[0]  |                  |               12 |             32 |         2.67 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_5[0]  |                  |               14 |             32 |         2.29 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[1]_3[0]  |                  |               16 |             32 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_6[0]  |                  |               10 |             32 |         3.20 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_9[0]  |                  |               10 |             32 |         3.20 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[3]_0[0]  |                  |                8 |             32 |         4.00 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[3]_2[0]  |                  |               25 |             32 |         1.28 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[3]_3[0]  |                  |               20 |             32 |         1.60 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_7[0]  |                  |               13 |             32 |         2.46 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[3]_1[0]  |                  |               13 |             32 |         2.46 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[3]_4[0]  |                  |                8 |             32 |         4.00 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/c/regM/Q[1]           |                  |                8 |             32 |         4.00 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[4]_1[0]  |                  |               10 |             32 |         3.20 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_3[0]  |                  |               14 |             32 |         2.29 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_1[0]  |                  |                8 |             32 |         4.00 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[1]_4[0]  |                  |                9 |             32 |         3.56 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_0[0]  |                  |                7 |             32 |         4.57 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[1]_5[0]  |                  |                9 |             32 |         3.56 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_10[0] |                  |               15 |             32 |         2.13 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_2[0]  |                  |               14 |             32 |         2.29 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_6[0]  |                  |               15 |             32 |         2.13 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[1]_1[0]  |                  |               12 |             32 |         2.67 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[1]_2[0]  |                  |                9 |             32 |         3.56 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[2]_3[0]  |                  |               15 |             32 |         2.13 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[0]_7[0]  |                  |               10 |             32 |         3.20 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[1]_0[0]  |                  |                7 |             32 |         4.57 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rdw/q_reg[4]_0[0]  |                  |               16 |             40 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | rvsingle/dp/rddE/E[0]          | reset_IBUF       |               23 |             91 |         3.96 |
+|  u_clk_wiz/inst/clk_out1 |                                | reset_IBUF       |              120 |            373 |         3.11 |
++--------------------------+--------------------------------+------------------+------------------+----------------+--------------+
+
+
