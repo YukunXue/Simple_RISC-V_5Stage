@@ -383,7 +383,7 @@ module regfile(input  logic        clk,
                input  logic [ 4:0] a1, a2, a3, 
                input  logic [31:0] wd3, 
                output logic [31:0] rd1, rd2,
-               output logic [7:0] led);
+               output logic [7:0]  led);
 
   logic [31:0] rf[31:0];
   
@@ -407,8 +407,10 @@ module regfile(input  logic        clk,
   always_ff @(posedge clk)
     if (we3) rf[a3] <= wd3;	
 
-  assign rd1 = (a1 != 0) ? rf[a1] : 0;
-  assign rd2 = (a2 != 0) ? rf[a2] : 0;
+  //assign rd1 = (a1 != 0) ? rf[a1] : 0;
+  //assign rd2 = (a2 != 0) ? rf[a2] : 0;
+  assign rd1 = (a1 == 0)? 0 : ((a1 == a3 & we3)? wd3 : rf[a1]);
+  assign rd2 = (a2 == 0)? 0 : ((a2 == a3 & we3)? wd3 : rf[a2]);
 
   assign sim_t3 = rf[28];
   assign sim_t4 = rf[29];
@@ -583,6 +585,7 @@ module imem(input  logic [31:0] a,
   assign RAM[28] = 32'h001E0E13;
   assign RAM[29] = 32'hFFEE08E3;
   assign RAM[30] = 32'hFF9FF06F;
+  //-------------------------------
   //assign RAM[0]  = 32'h7FF00F13;
   //assign RAM[1]  = 32'h01EF0F33;
   //assign RAM[2]  = 32'h01EF0F33;
