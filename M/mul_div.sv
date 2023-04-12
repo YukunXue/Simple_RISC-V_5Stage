@@ -1,103 +1,111 @@
-`timescale 1ps/1ps
-`include "defines.v"
-module tb_mul();
 
-  logic x_sign;
-  logic y_sign;
+module serdiv#(
+  parameter WIDTH = 32
+)(
+  input                     i_clk         ,
+  input                     i_rst        ,
+  input                     i_flush       , //取消当前计算
+  input                     i_start       , //开始计算
+  output                    o_busy        , //计算中
+  output logic              o_end_valid   , //计算结束
+  input                     i_signed      , //有符号数1 无符号数0
+  input  logic [WIDTH-1:0]  i_dividend    ,
+  input  logic [WIDTH-1:0]  i_divisor     ,
+  output logic [WIDTH-1:0]  o_quotient    ,
+  output logic [WIDTH-1:0]  o_remainder
+);
+
+  // 1. control signal:///////////////////////////////////////////////////////////////////////
+  localparam CNT_W = $clog2(WIDTH); 
   
-  logic [31:0] x;
-  logic [31:0] y;
- 
-  logic [5:0] x_b;
-  logic [5:0] y_b;
+  logic [CNT_W-1:0] cnt;
 
-  logic [5:0] hi_bb;
-  logic [5:0] lo_bb;
+  wire cntneq0 = |cnt; // cnt != 0
+  
+  assign o_busy = (cntneq0) | o_end_valid;
 
-  logic [31:0] hi;
-  logic [31:0] lo;
-
-  logic [31:0] hi_b;
-  logic [31:0] lo_b;
-
-  logic [63:0] res_mult1;
-  assign  res_mult1 = {hi,lo};
-  logic [63:0] res_mult2;
-  assign  res_mult2 = {hi_b,lo_b};
-  mult_simple mult1(
-	x_sign,
-	y_sign,
-	x,
-	y,
-	hi,
-	lo
-  );
-
-  mult_booth mult2(
-	x_sign,
-	y_sign,
-	x,
-	y,
-	hi_b,
-	lo_b	
-  );
-
-//  mult_booth #(6)mult3(
-//	x_sign,
-//	y_sign,
-//	x_b,
-//	y_b,
-//	hi_bb,
-//	lo_bb	
-//  );
-
-  initial begin
-
-	{x_sign, y_sign} = 2'b11;
-	//x = $random % 4294967296;
-	//y = $random % 4294967296;
-	x = $random();
-	y = $random(); 
-	//x = 32'hFFFFFFF8;
-	//y = 32'd1; 
-
-	x_b = 6'b111110;
-	y_b = 6'b001111; 
-	//x_b = $random();
-	//y_b = $random();
-	#10
-	{x_sign, y_sign} = 2'b10;
-	//x = $random % 4294967296;
-	//y = $random % 4294967296;
-	x = 32'hFFFFFFF8;
-	y = 32'd1;
-
-	//x_b = 6'b111110;
-	//y_b = 6'b001111; 
-
-	#10
-	{x_sign, y_sign} = 2'b00;
-	//x = $random % 4294967296;
-	//y = $random % 4294967296;
-	x = 32'hFFFFFFF8;
-	y = 32'd1;
-
-	//x_b = 6'b111110;
-	//y_b = 6'b001111;  
-	
-	#10
-	$finish;
+  always@(posedge i_clk or negedge i_rst)begin
+    if(i_rst)begin
+      cnt <= {CNT_W{1'b0}};
+    end else if(i_flush) begin
+      cnt <= {CNT_W{1'b0}};
+    end else if(i_start) begin
+      cnt <= {CNT_W{1'b1}}; //  63.
+    end else if(cntneq0) begin // cnt != 0
+      cnt <= cnt - 1;
+    end
   end
 
+  
+  always@(posedge i_clk or negedge i_rst)begin
+    if(i_rst)begin
+      o_end_valid <= 1'b0;
+    end else if(i_flush)begin
+      o_end_valid <= 1'b0;
+    end else if(cnt == {{(CNT_W-1){1'b0}},1'b1}) begin  //1
+      o_end_valid <= 1'b1;
+    end else if(o_end_valid) begin
+      o_end_valid <= 1'b0;
+    end
+  end
 
-  initial begin
-        $dumpfile("tb_mul.vcd");
-        $dumpvars(0, tb_mul);    //tb模块名称
-   end
+  // 2. deal input signals://///////////////////////////////////////////////////////////////////
+  wire [WIDTH-1:0] i_dividend_wrapper =  i_dividend;
+  wire [WIDTH-1:0] i_divisor_wrapper  =  i_divisor ;
+
+  wire dividend_positive = i_signed ? ~i_dividend_wrapper[WIDTH-1] : 1;
+  wire divisor_positive  = i_signed ? ~i_divisor_wrapper [WIDTH-1] : 1;
+
+  wire [WIDTH-1:0] i_dividend_abs = dividend_positive ? i_dividend_wrapper : ~i_dividend_wrapper + 1'b1;  
+  wire [WIDTH-1:0] i_divisor_abs  = divisor_positive  ? i_divisor_wrapper  : ~i_divisor_wrapper  + 1'b1;
+
+  // 3. div:///////////////////////////////////////////////////////////////////////////////////
+  logic [WIDTH-1  :0] divisor_r;
+  logic [2*WIDTH-1:0] dividend , dividend_r , dividend_r_shift ;
+  logic [WIDTH-1  :0] quotient , quotient_r ;
+
+  always@(posedge i_clk or negedge i_rst)begin
+    if(i_rst)begin
+      dividend_r  <= {2*WIDTH{1'b0}};
+      divisor_r   <= {  WIDTH{1'b0}};
+      quotient_r  <= {  WIDTH{1'b0}};
+    end else if(i_flush) begin
+      dividend_r  <= {2*WIDTH{1'b0}};
+      divisor_r   <= {  WIDTH{1'b0}};
+      quotient_r  <= {  WIDTH{1'b0}};
+    end else if(i_start) begin  //初始化
+      dividend_r  <= {{WIDTH{1'b0}}, i_dividend_abs};
+      divisor_r   <= i_divisor_abs;
+      quotient_r  <= {WIDTH{1'b0}};
+    end else if(cntneq0) begin
+      dividend_r  <= dividend ;
+      quotient_r  <= quotient ;
+    end
+  end
+
+  logic [WIDTH-1:0] div_sub, mask;
+  logic sub_positive, sub_negative;
+
+  assign dividend_r_shift = {dividend_r >> cnt};
+  assign {sub_negative,div_sub} = dividend_r_shift[WIDTH:0] - {1'b0,divisor_r};
+  assign sub_positive = ~sub_negative;
+
+  assign mask = ~({WIDTH{1'b1}} << cnt); // low bit mask.
+  assign dividend = sub_negative ? dividend_r : {{WIDTH{1'b0}}, {(div_sub<<cnt) | (dividend_r[WIDTH-1:0] & mask)}};//补全没用到的位
+
+  for(genvar i=0; i<WIDTH; i++)begin
+    assign quotient[i]  = (i == cnt) ? sub_positive : quotient_r[i];
+  end
+
+  // 4. output: //cnt == 0输出结果
+  assign o_quotient  = cntneq0 ? {WIDTH{1'b0}} : (~(dividend_positive^divisor_positive) ? quotient : ~quotient + 1'b1)  ;
+  assign o_remainder = cntneq0 ? {WIDTH{1'b0}} : (dividend_positive ? dividend[WIDTH-1:0] : ~dividend[WIDTH-1:0] + 1'b1); 
+
 endmodule
 
 
-module mult_simple #(
+
+module mult1 #(
   parameter W = 32          // width should not be changed, only support 64 now.
 )(
   input             i_x_sign,
@@ -107,43 +115,18 @@ module mult_simple #(
   output 	[W-1:0]   o_hi_res,
   output 	[W-1:0]   o_lw_res
 );
-  localparam TOTAL_W = W + 2 ; // 2 for signed extension, 34 totally.
-  logic	[TOTAL_W-1:0]   x  ; //34bit
-  logic	[TOTAL_W-1:0]   y  ; //34bit
-  assign x =  {i_x_sign ? {2{i_x[W-1]}} : 2'b0, i_x[W-1:0]}; // 34bit 扩展两位符号数
-  assign y =  {i_y_sign ? {2{i_y[W-1]}} : 2'b0, i_y[W-1:0]};
-   logic [2*TOTAL_W-1:0] res; //68bit
-   assign res = $signed(x) * $signed(y);
-  reg [63:0] mul;  
 
-  wire [`MUL_OP-1:0] mul_op ;
-  assign mul_op = {i_x_sign, i_y_sign};
-
-  logic [63:0 ] y_unsigned;
-  logic [63:0 ] x_signed;
-
-  assign y_unsigned = $unsigned(i_y);
-  assign x_signed   = $signed(i_x);
+  logic [63:0] mul;  
+  assign mul = i_x * i_y;
   
-  always @(*)begin
-      case(mul_op)
-      `MULH :  mul = $signed(i_x) * $signed(i_y);
-
-      `MULHU:  mul = $unsigned(i_x) * $unsigned(i_y);
-
-      `MULHSU: mul = $signed($signed(i_x) * $unsigned(i_y));
-
-      `MULHUS: mul = $signed($unsigned(i_x) * $signed(i_y));
-
-      endcase
-  end
-  
-  assign o_hi_res = res[63:32];
-  assign o_lw_res = res[31:0];
+  assign o_hi_res = mul[63:32];
+  assign o_lw_res = mul[31:0];
    
 endmodule
 
-module mult_booth #(
+
+
+module mult #(
   parameter W = 32          // width should not be changed, only support 64 now.
 )(
   input             i_x_sign,
@@ -162,7 +145,7 @@ module mult_booth #(
   logic [2*TOTAL_W-1:0] res; //68bit
 
   assign x =  {i_x_sign ? {2{i_x[W-1]}} : 2'b0, i_x[W-1:0]}; // 34bit 扩展两位符号数
-  assign y =  {i_y_sign ? {2{i_y[W-1]}} : 2'b0, i_y[W-1:0]};
+  assign y = {i_y_sign ? {2{i_y[W-1]}} : 2'b0, i_y[W-1:0]};
 
   // 1. generate partial product://///////////////////////////////////////////////////////////
   wire  [TOTAL_W:0] p[PNUM-1:0];   //17个 34bit部分积
@@ -178,18 +161,9 @@ module mult_booth #(
   wire [2*TOTAL_W-1:0] tree_out [1:0];      //压缩成两个68bit相加
   assign tree_in[ 0] = {{(TOTAL_W-1){c[0]}} , p[0]	};
   for(genvar i=1; i<PNUM; i=i+1)begin:gen_tree_in
-    assign tree_in[i] = {{(TOTAL_W-1-2*i){c[i]}}, p[i], 1'b0, {(2*i){1'b0}}};
-    //assign tree_in[i] = {{(TOTAL_W-1-2*i){c[i]}}, p[i], {(2*i){1'b0}}};
+    assign tree_in[i] = {{(TOTAL_W-1-2*i){c[i]}}, p[i], 1'b0, c[i-1], {(2*i-2){1'b0}}};
   end
 
-	//wire [2*TOTAL_W-1:0] tree_in0 = tree_in[0];
-	//wire [2*TOTAL_W-1:0] tree_in1 = tree_in[1];
-	//wire [2*TOTAL_W-1:0] tree_in2 = tree_in[2];
-	//wire [2*TOTAL_W-1:0] tree_in3 = tree_in[3];
-	//assign tree_out[0] = tree_in[0] + tree_in[1];
-	//assign tree_out[1] = tree_in[2] + tree_in[3];
-
-	
   wallace_tree_17 #(2*TOTAL_W) wallace_tree (.in(tree_in),.out(tree_out));
 
   // 3. full connect adder://///////////////////////////////////////////////////////////////////
@@ -199,43 +173,11 @@ module mult_booth #(
 
 endmodule
 
-//module booth #(parameter WIDTH=32) (
-//  input [WIDTH-1:0] x,
-//  input [2:0] s,
-//  output wire [WIDTH:0] p,  //部分积
-//  output wire c             //负1正0
-//);
-
-//  wire y_add,y,y_sub; // y+1,y,y-1
-//  wire sel_negative,sel_double_negative,sel_positive,sel_double_positive;
-
-//  assign {y_add,y,y_sub} = s;
-
-//  assign sel_negative =  y_add & (y & ~y_sub | ~y & y_sub);
-//  assign sel_positive = ~y_add & (y & ~y_sub | ~y & y_sub);
-//  assign sel_double_negative =  y_add & ~y & ~y_sub;
-//  assign sel_double_positive = ~y_add &  y &  y_sub;
-
-//  wire [WIDTH-1:0] inv_x;
-//  //assign inv_x = ~x+1'b1;
-//  assign p = 
-//            //sel_double_negative ? {inv_x, 1'b0} : 
-//  			    sel_double_negative ? ~{x, 1'b0} : 
-//            (sel_double_positive ? {x, 1'b0} :
-//            (sel_negative ? ~{x[WIDTH-1],x}:
-//			//(sel_negative ? {inv_x[WIDTH-1],inv_x}:
-//            (sel_positive ?  {x[WIDTH-1],x} : {(WIDTH+1){1'b0}})));
-//  assign c = sel_double_negative | sel_negative ? 1'b1 : 1'b0;
-//  //assign c = p[WIDTH];
-
-//endmodule
-
-
 module booth #(parameter WIDTH=32) (
   input [WIDTH-1:0] x,
   input [2:0] s,
-  output wire [WIDTH:0] psum, // partil sum.
-  output wire clow            // carray low bit.
+  output wire [WIDTH:0] p,  //部分积
+  output wire c             //负1正0
 );
 
   wire y_add,y,y_sub; // y+1,y,y-1
@@ -248,12 +190,64 @@ module booth #(parameter WIDTH=32) (
   assign sel_double_negative =  y_add & ~y & ~y_sub;
   assign sel_double_positive = ~y_add &  y &  y_sub;
 
-  assign psum = sel_double_negative ? ~{x, 1'b0} : 
-            (sel_double_positive ?  {x, 1'b0} :
-            (sel_negative ? ~{x[WIDTH-1],x} :
-            (sel_positive ?  {x[WIDTH-1],x} : {(WIDTH+1){1'b0}})));
+  assign p = sel_double_negative ? ~{x, 1'b0} : 
+            (sel_double_positive ? {x, 1'b0} :
+            (sel_negative ? ~{1'b0,x}:
+            (sel_positive ?  {1'b0,x} : {(WIDTH+1){1'b0}})));
+  assign c = sel_double_negative | sel_negative ? 1'b1 : 1'b0;
 
-  assign clow = sel_double_negative | sel_negative;
+endmodule
+
+module csa_nbit#(
+  parameter N = 64
+)(
+  input  [N-1:0] i_a, 
+  input  [N-1:0] i_b, 
+  input  [N-1:0] i_c, 
+  output [N-1:0] o_s,  //sum
+  output [N-1:0] o_c  //count
+);
+
+  wire [N-1:0] p;
+  wire [N-1:0] g;
+
+  genvar i;
+  generate
+    for(i=0; i<N; i=i+1)begin:csa
+      assign g[i] = i_a[i] & i_b[i];
+      assign p[i] = i_a[i] ^ i_b[i];
+      assign o_s[i] = p[i] ^ i_c[i];
+      assign o_c[i] = i_c[i] & p[i] | g[i] ; 
+    end
+  endgenerate
+
+endmodule
+
+module rca_nbit#(
+  parameter N = 64
+)(
+  input  [N-1:0] i_a, 
+  input  [N-1:0] i_b, 
+  input          i_c, 
+  output [N-1:0] o_s, 
+  output         o_c
+);
+
+  wire [N-1:0] p;
+  wire [N-1:0] g;
+  // verilator lint_off UNOPTFLAT
+  wire [N:0] c;
+  // verilator lint_on UNOPTFLAT
+
+  for(genvar i=0; i<N; i=i+1)begin:csa
+    assign g[i]   = i_a[i] & i_b[i];
+    assign p[i]   = i_a[i] ^ i_b[i];
+    assign c[i+1] = c[i] & p[i] | g[i];
+    assign o_s[i] = p[i] ^ c[i];
+  end
+
+  assign c[0] = i_c;
+  assign o_c = c[N];
 
 endmodule
 
@@ -333,58 +327,5 @@ module wallace_tree_17 #(
   // 9. output 2p :////////////////////////////////////////////////////////////////////////////////////////
   assign out[1] = c_row6_shift;
   assign out[0] = s_row6;
-
-endmodule
-
-module csa_nbit#(
-  parameter N = 64
-)(
-  input  [N-1:0] i_a, 
-  input  [N-1:0] i_b, 
-  input  [N-1:0] i_c, 
-  output [N-1:0] o_s,  //sum
-  output [N-1:0] o_c  //count
-);
-
-  wire [N-1:0] p;
-  wire [N-1:0] g;
-
-  genvar i;
-  generate
-    for(i=0; i<N; i=i+1)begin:csa
-      assign g[i] = i_a[i] & i_b[i];
-      assign p[i] = i_a[i] ^ i_b[i];
-      assign o_s[i] = p[i] ^ i_c[i];
-      assign o_c[i] = i_c[i] & p[i] | g[i] ; 
-    end
-  endgenerate
-
-endmodule
-
-module rca_nbit#(
-  parameter N = 64
-)(
-  input  [N-1:0] i_a, 
-  input  [N-1:0] i_b, 
-  input          i_c, 
-  output [N-1:0] o_s, 
-  output         o_c
-);
-
-  wire [N-1:0] p;
-  wire [N-1:0] g;
-  // verilator lint_off UNOPTFLAT
-  wire [N:0] c;
-  // verilator lint_on UNOPTFLAT
-
-  for(genvar i=0; i<N; i=i+1)begin:csa
-    assign g[i]   = i_a[i] & i_b[i];
-    assign p[i]   = i_a[i] ^ i_b[i];
-    assign c[i+1] = c[i] & p[i] | g[i];
-    assign o_s[i] = p[i] ^ c[i];
-  end
-
-  assign c[0] = i_c;
-  assign o_c = c[N];
 
 endmodule
